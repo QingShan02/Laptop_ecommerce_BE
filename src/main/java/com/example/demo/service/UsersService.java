@@ -7,8 +7,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.example.demo.entity.Users;
+import com.example.demo.exception.InvalidRequestParameterException;
 import com.example.demo.repository.UsersRepository;
-
+import com.example.demo.common.enums.*;
 @Service
 public class UsersService implements BaseService<Users, Integer> {
 	
@@ -22,9 +23,9 @@ public class UsersService implements BaseService<Users, Integer> {
 	}
 
 	@Override
-	public Optional<Users> findById(Integer id) {
+	public Users findById(Integer id) throws InvalidRequestParameterException {
 		// TODO Auto-generated method stub
-		return usersRepository.findById(id);
+		return usersRepository.findById(id).orElseThrow(()->new InvalidRequestParameterException("id",InvalidRequestParameter.NOTHING));
 	}
 
 }
