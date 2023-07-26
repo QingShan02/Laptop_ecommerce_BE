@@ -9,16 +9,13 @@ import lombok.Getter;
 import lombok.Setter;
 import com.example.demo.common.enums.*;
 
-
-
-public class InvalidRequestParameterException extends Exception{
+public class InvalidRequestParameterException extends Exception {
 	@Getter
 	@Setter
 	protected ErrorResponse response;
 
-	
-	public InvalidRequestParameterException(String param,InvalidRequestParameter type) {
-		setResponse(new ErrorResponse(HttpStatus.BAD_REQUEST.value(), param+" is "+type.name()));
+	public InvalidRequestParameterException(String param, InvalidRequestParameter type) {
+		setResponse(new ErrorResponse(HttpStatus.BAD_REQUEST.value(), param + " is " + type.name()));
 	}
-	
+
 }

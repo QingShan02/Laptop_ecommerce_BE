@@ -25,7 +25,8 @@ public class UsersService implements BaseService<Users, Integer> {
 	@Override
 	public Users findById(Integer id) throws InvalidRequestParameterException {
 		// TODO Auto-generated method stub
-		return usersRepository.findById(id).orElseThrow(()->new InvalidRequestParameterException("id",InvalidRequestParameter.NOTHING));
+		return usersRepository.findById(id)
+							  .orElseThrow(()->new InvalidRequestParameterException("id",InvalidRequestParameter.NOTHING));
 	}
 
 }
