@@ -13,6 +13,14 @@ import com.example.demo.exception.InvalidRequestParameterException;
 public class GlobalExceptionHandler {
 
     @ExceptionHandler(InvalidRequestParameterException.class)
+    public ResponseEntity<?> handleInvalidRequestParameterException(InvalidRequestParameterException e) {
+    	return ResponseEntity.status(e.getResponse().getCode()).body(e.getResponse());
+    }
+    
+    @ExceptionHandler(Exception.class)
+    public ResponseEntity<?> handleAllExceptions(Exception e) {
+        return ResponseEntity.internalServerError().body("Something went wrong");
+    }
     public ResponseEntity<Object> handleInvalidRequestException(InvalidRequestParameterException ex) {
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(ex.getResponse());
     }

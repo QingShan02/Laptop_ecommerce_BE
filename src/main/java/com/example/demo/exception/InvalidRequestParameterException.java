@@ -9,7 +9,9 @@ import lombok.Getter;
 import lombok.Setter;
 import com.example.demo.common.enums.*;
 
-public class InvalidRequestParameterException extends Exception {
+
+
+public class InvalidRequestParameterException extends Exception{
 	@Getter
 	@Setter
 	protected ErrorResponse response;

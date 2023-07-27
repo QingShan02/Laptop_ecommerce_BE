@@ -6,7 +6,7 @@
 		<groupId>org.springframework.boot</groupId>
 		<artifactId>spring-boot-starter-parent</artifactId>
 		<version>3.1.1</version>
-		<relativePath /> <!-- lookup parent from repository -->
+		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>com.example</groupId>
 	<artifactId>Java6_ASM</artifactId>
@@ -25,15 +25,7 @@
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-web</artifactId>
 		</dependency>
-<<<<<<< HEAD
-		<dependency>
-			<groupId>org.postgresql</groupId>
-			<artifactId>postgresql</artifactId>
-			<scope>runtime</scope>
-		</dependency>
-=======
 
->>>>>>> 7bd58a2e9b47ffc9261966f6ca41ac7e66defc4c
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-devtools</artifactId>
@@ -41,14 +33,11 @@
 			<optional>true</optional>
 		</dependency>
 		<dependency>
-<<<<<<< HEAD
-=======
 			<groupId>org.postgresql</groupId>
 			<artifactId>postgresql</artifactId>
 			<scope>runtime</scope>
 		</dependency>
 		<dependency>
->>>>>>> 7bd58a2e9b47ffc9261966f6ca41ac7e66defc4c
 			<groupId>org.projectlombok</groupId>
 			<artifactId>lombok</artifactId>
 			<optional>true</optional>
@@ -59,10 +48,7 @@
 			<scope>test</scope>
 		</dependency>
 	</dependencies>
-<<<<<<< HEAD
-=======
 
->>>>>>> 7bd58a2e9b47ffc9261966f6ca41ac7e66defc4c
 	<build>
 		<plugins>
 			<plugin>
@@ -79,8 +65,5 @@
 			</plugin>
 		</plugins>
 	</build>
-<<<<<<< HEAD
-=======
 
->>>>>>> 7bd58a2e9b47ffc9261966f6ca41ac7e66defc4c
 </project>

@@ -7,6 +7,8 @@ import lombok.NoArgsConstructor;
 
 import java.util.Date;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 @Entity
 @Table(name = "product")
 @Data
@@ -34,4 +36,8 @@ public class Product {
 	private int quantity;
 
 	private String logo;
+	
+    @ManyToOne
+    @JoinColumn(name = "brandid", insertable = false, updatable = false)
+    private Brand brand;
 }
