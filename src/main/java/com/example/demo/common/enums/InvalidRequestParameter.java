@@ -9,7 +9,6 @@ public enum InvalidRequestParameter{
 	INVALID_TYPE("invalid type"),
 	WRONG("wrong"),
 	NOT_EXISTS("not exists");
-	INVALID_TYPE("invalid type");
 	@Getter
 	private String name;
 }
