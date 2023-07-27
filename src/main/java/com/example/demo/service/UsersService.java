@@ -1,6 +1,7 @@
 package com.example.demo.service;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -13,6 +14,13 @@ import com.example.demo.repository.UsersRepository;
 @Service
 public class UsersService implements BaseService<Users, Integer> {
 
+import com.example.demo.entity.Users;
+import com.example.demo.exception.InvalidRequestParameterException;
+import com.example.demo.repository.UsersRepository;
+import com.example.demo.common.enums.*;
+@Service
+public class UsersService implements BaseService<Users, Integer> {
+	
 	@Autowired
 	private UsersRepository usersRepository;
 
@@ -35,6 +43,7 @@ public class UsersService implements BaseService<Users, Integer> {
 				() -> new InvalidRequestParameterException("EMAIL", InvalidRequestParameter.NOT_EXISTS));
 		return usersRepository.findByEmailAndPassword(email, password).orElseThrow(
 				() -> new InvalidRequestParameterException("PASSWORD", InvalidRequestParameter.WRONG));
+							  .orElseThrow(()->new InvalidRequestParameterException("id",InvalidRequestParameter.NOTHING));
 	}
 
 }
