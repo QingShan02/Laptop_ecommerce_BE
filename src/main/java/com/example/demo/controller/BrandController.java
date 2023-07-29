@@ -24,7 +24,7 @@ public class BrandController {
 	}
 	
 	@GetMapping("/brands")
-	public ResponseEntity<?> getAllBrands() {
+	public ResponseEntity<?> getAll() {
 		return ResponseEntity.ok(brandService.findAll());
 	}
 }
