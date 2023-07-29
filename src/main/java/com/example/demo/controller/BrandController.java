@@ -8,17 +8,23 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.example.demo.service.ProductService;
+import com.example.demo.exception.InvalidRequestParameterException;
+import com.example.demo.service.BrandService;
 
 @RestController
 @CrossOrigin(value = "*")
 @RequestMapping("/api")
-public class SearchController {
+public class BrandController {
 	@Autowired
-	ProductService productService;
-
-	@GetMapping("/search")
-	public ResponseEntity<?> findByProductNameOrBrandName(@RequestParam("keyword") String key) {
-		return ResponseEntity.ok(productService.findByName(key));
+	BrandService brandService;
+	
+	@GetMapping("/brand")
+	public ResponseEntity<?> findById(@RequestParam("id") Integer id) throws InvalidRequestParameterException {
+		return ResponseEntity.ok(brandService.findById(id));
+	}
+	
+	@GetMapping("/brands")
+	public ResponseEntity<?> getAllBrands() {
+		return ResponseEntity.ok(brandService.findAll());
 	}
 }
