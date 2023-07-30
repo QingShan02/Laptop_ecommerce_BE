@@ -1,7 +1,7 @@
 package com.example.demo.service;
 
 import java.util.List;
-import java.util.stream.Collectors;
+import java.util.regex.Pattern;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -12,61 +12,56 @@ import com.example.demo.exception.InvalidRequestParameterException;
 import com.example.demo.model.ProductFilter;
 import com.example.demo.repository.ProductRepository;
 
+import jakarta.persistence.EntityManager;
+import jakarta.persistence.PersistenceContext;
+import jakarta.persistence.TypedQuery;
+
 @Service
 public class ProductService implements BaseService<Product, Integer> {
 	@Autowired
 	ProductRepository repo;
+	@PersistenceContext
+	private EntityManager entityManager;
 
 	@Override
 	public List<Product> findAll() {
-		// TODO Auto-generated method stub
 		return repo.findAll();
 	}
 
 	@Override
 	public Product findById(Integer id) throws InvalidRequestParameterException {
-		// TODO Auto-generated method stub
 		return repo.findById(id)
 				.orElseThrow(() -> new InvalidRequestParameterException("id", InvalidRequestParameter.NOTHING));
 	}
 
-	public List<Product> findByName(String keyword) {
-		return repo.findByName('%' + keyword + '%');
-	}
+	public List<Product> filterProduct(ProductFilter p) {
+		String query = "SELECT o FROM Product o JOIN Brand b ON o.brand.id = b.id " + "WHERE o.brand.id = :brandid "
+				+ "AND o.ram = :ram " + "AND o.rom = :rom " + "AND o.os = :os " + "AND o.display = :display";
 
-	public List<Product> filterProduct(ProductFilter data) {
-	    List<Product> products = this.findAll();
+		if (p.getBrandid().isBlank())
+			query = Pattern.compile(":brandid").matcher(query).replaceAll("o.brand.id");
+		if (p.getRam().isBlank())
+			query = Pattern.compile(":ram").matcher(query).replaceAll("o.ram");
+		if (p.getRom().isBlank())
+			query = Pattern.compile(":rom").matcher(query).replaceAll("o.rom");
+		if (p.getDisplay().isBlank())
+			query = Pattern.compile(":display").matcher(query).replaceAll("o.display");
+		if (p.getOs().isBlank())
+			query = Pattern.compile(":os").matcher(query).replaceAll("o.os");
 
-	    if (!data.getRam().isEmpty()) {
-	        products = products.stream()
-	            .filter(product -> product.getRam().equals(data.getRam()))
-	            .collect(Collectors.toList());
-	    }
+		TypedQuery<Product> type = entityManager.createQuery(query, Product.class);
 
-	    if (!data.getRom().isEmpty()) {
-	        products = products.stream()
-	            .filter(product -> product.getRom().equals(data.getRom()))
-	            .collect(Collectors.toList());
-	    }
+		if (!p.getBrandid().isBlank())
+			type.setParameter("brandid", p.getBrandid().strip());
+		if (!p.getRam().isBlank())
+			type.setParameter("ram", p.getRam().strip());
+		if (!p.getRom().isBlank())
+			type.setParameter("rom", p.getRom().strip());
+		if (!p.getDisplay().isBlank())
+			type.setParameter("display", p.getDisplay().strip());
+		if (!p.getOs().isBlank())
+			type.setParameter("os", p.getOs().strip());
 
-	    if (!data.getDisplay().isEmpty()) {
-	        products = products.stream()
-	            .filter(product -> product.getDisplay().equals(data.getDisplay()))
-	            .collect(Collectors.toList());
-	    }
-
-	    if (!data.getOs().isEmpty()) {
-	        products = products.stream()
-	            .filter(product -> product.getOs().equals(data.getOs()))
-	            .collect(Collectors.toList());
-	    }
-	    
-	    if (data.getBrandid() != null) {
-	        products = products.stream()
-	            .filter(product -> product.getBrand().getId() == data.getBrandid())
-	            .collect(Collectors.toList());
-	    }
-
-	    return products;
+		return type.getResultList();
 	}
 }

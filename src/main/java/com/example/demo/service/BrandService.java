@@ -17,13 +17,11 @@ public class BrandService implements BaseService<Brand, Integer> {
 
 	@Override
 	public List<Brand> findAll() {
-		// TODO Auto-generated method stub
 		return repo.findAll();
 	}
 
 	@Override
 	public Brand findById(Integer id) throws InvalidRequestParameterException {
-		// TODO Auto-generated method stub
 		return repo.findById(id)
 				.orElseThrow(() -> new InvalidRequestParameterException("id", InvalidRequestParameter.NOTHING));
 	}
