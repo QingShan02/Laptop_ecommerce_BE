@@ -35,31 +35,31 @@ public class ProductService implements BaseService<Product, Integer> {
 	}
 
 	public List<Product> filterProduct(ProductFilter p) {
-		String query = "SELECT o FROM Product o JOIN Brand b ON o.brand.id = b.id " + "WHERE o.brand.id = :brandid "
+		String query = "SELECT o FROM Product o " + "WHERE o.brand.id = :brandid "
 				+ "AND o.ram = :ram " + "AND o.rom = :rom " + "AND o.os = :os " + "AND o.display = :display";
 
-		if (p.getBrandid().isBlank())
+		if (p.getBrandid().equalsIgnoreCase("All"))
 			query = Pattern.compile(":brandid").matcher(query).replaceAll("o.brand.id");
-		if (p.getRam().isBlank())
+		if (p.getRam().equalsIgnoreCase("All"))
 			query = Pattern.compile(":ram").matcher(query).replaceAll("o.ram");
-		if (p.getRom().isBlank())
+		if (p.getRom().equalsIgnoreCase("All"))
 			query = Pattern.compile(":rom").matcher(query).replaceAll("o.rom");
-		if (p.getDisplay().isBlank())
+		if (p.getDisplay().equalsIgnoreCase("All"))
 			query = Pattern.compile(":display").matcher(query).replaceAll("o.display");
-		if (p.getOs().isBlank())
+		if (p.getOs().equalsIgnoreCase("All"))
 			query = Pattern.compile(":os").matcher(query).replaceAll("o.os");
 
 		TypedQuery<Product> type = entityManager.createQuery(query, Product.class);
 
-		if (!p.getBrandid().isBlank())
+		if (!p.getBrandid().equalsIgnoreCase("All"))
 			type.setParameter("brandid", p.getBrandid().strip());
-		if (!p.getRam().isBlank())
+		if (!p.getRam().equalsIgnoreCase("All"))
 			type.setParameter("ram", p.getRam().strip());
-		if (!p.getRom().isBlank())
+		if (!p.getRom().equalsIgnoreCase("All"))
 			type.setParameter("rom", p.getRom().strip());
-		if (!p.getDisplay().isBlank())
+		if (!p.getDisplay().equalsIgnoreCase("All"))
 			type.setParameter("display", p.getDisplay().strip());
-		if (!p.getOs().isBlank())
+		if (!p.getOs().equalsIgnoreCase("All"))
 			type.setParameter("os", p.getOs().strip());
 
 		return type.getResultList();
