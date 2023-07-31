@@ -33,6 +33,7 @@ public class ProductController {
 
 	@PostMapping("/products/filter")
 	public ResponseEntity<?> filterProduct(@RequestBody ProductFilter p) {
-		return ResponseEntity.ok(productService.filterProduct(p));
+		return ResponseEntity
+				.ok(productService.filterProduct(p.getRam(), p.getRom(), p.getDisplay(), p.getOs(), p.getBrandid()));
 	}
 }

@@ -7,5 +7,4 @@ import com.example.demo.entity.Brand;
 
 @Repository
 public interface BrandRepository extends JpaRepository<Brand, Integer>{
-
 }

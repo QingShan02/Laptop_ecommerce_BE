@@ -1,7 +1,6 @@
 package com.example.demo.service;
 
 import java.util.List;
-import java.util.regex.Pattern;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -9,12 +8,10 @@ import org.springframework.stereotype.Service;
 import com.example.demo.common.enums.InvalidRequestParameter;
 import com.example.demo.entity.Product;
 import com.example.demo.exception.InvalidRequestParameterException;
-import com.example.demo.model.ProductFilter;
 import com.example.demo.repository.ProductRepository;
 
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
-import jakarta.persistence.TypedQuery;
 
 @Service
 public class ProductService implements BaseService<Product, Integer> {
@@ -34,34 +31,7 @@ public class ProductService implements BaseService<Product, Integer> {
 				.orElseThrow(() -> new InvalidRequestParameterException("id", InvalidRequestParameter.NOTHING));
 	}
 
-	public List<Product> filterProduct(ProductFilter p) {
-		String query = "SELECT o FROM Product o " + "WHERE o.brand.id = :brandid "
-				+ "AND o.ram = :ram " + "AND o.rom = :rom " + "AND o.os = :os " + "AND o.display = :display";
-
-		if (p.getBrandid().equalsIgnoreCase("All"))
-			query = Pattern.compile(":brandid").matcher(query).replaceAll("o.brand.id");
-		if (p.getRam().equalsIgnoreCase("All"))
-			query = Pattern.compile(":ram").matcher(query).replaceAll("o.ram");
-		if (p.getRom().equalsIgnoreCase("All"))
-			query = Pattern.compile(":rom").matcher(query).replaceAll("o.rom");
-		if (p.getDisplay().equalsIgnoreCase("All"))
-			query = Pattern.compile(":display").matcher(query).replaceAll("o.display");
-		if (p.getOs().equalsIgnoreCase("All"))
-			query = Pattern.compile(":os").matcher(query).replaceAll("o.os");
-
-		TypedQuery<Product> type = entityManager.createQuery(query, Product.class);
-
-		if (!p.getBrandid().equalsIgnoreCase("All"))
-			type.setParameter("brandid", p.getBrandid().strip());
-		if (!p.getRam().equalsIgnoreCase("All"))
-			type.setParameter("ram", p.getRam().strip());
-		if (!p.getRom().equalsIgnoreCase("All"))
-			type.setParameter("rom", p.getRom().strip());
-		if (!p.getDisplay().equalsIgnoreCase("All"))
-			type.setParameter("display", p.getDisplay().strip());
-		if (!p.getOs().equalsIgnoreCase("All"))
-			type.setParameter("os", p.getOs().strip());
-
-		return type.getResultList();
+	public List<Product> filterProduct(String ram, String rom, String display, String os, Integer brandid) {
+		return repo.filterProduct(ram, rom, display, os, brandid);
 	}
 }
