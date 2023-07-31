@@ -25,5 +25,5 @@ public class BrandService implements BaseService<Brand, Integer> {
 		return repo.findById(id)
 				.orElseThrow(() -> new InvalidRequestParameterException("id", InvalidRequestParameter.NOTHING));
 	}
-
+	
 }

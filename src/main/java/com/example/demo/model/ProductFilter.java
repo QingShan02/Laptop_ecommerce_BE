@@ -12,5 +12,5 @@ public class ProductFilter {
 	String rom;
 	String display;
 	String os;
-	String brandid;
+	Integer brandid;
 }
