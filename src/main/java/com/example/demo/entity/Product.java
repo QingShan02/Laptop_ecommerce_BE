@@ -21,11 +21,11 @@ public class Product {
 
 	private String ram;
 
-	private String display;
+	private String screen;
 
 	private String rom;
 
-	private Date puslishedDate;
+	// private Date puslished_date;
 
 	private String os;
 
