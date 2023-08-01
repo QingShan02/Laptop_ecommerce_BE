@@ -1,5 +1,7 @@
 package com.example.demo.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -16,4 +18,8 @@ public class Color {
 	private int id;
 
 	private String name;
+
+	@OneToOne(mappedBy = "color")
+	@JsonIgnore
+	private Product product;
 }

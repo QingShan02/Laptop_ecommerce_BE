@@ -15,14 +15,16 @@ public class Cart {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
 
-	@Column(name = "productid")
-	private int productId;
+	@ManyToOne
+	@JoinColumn(name="productid")
+	private Product product;
+
+	// @Column(name = "productid")
+	// private int productId;
 
 	@Column(name = "userid")
 	private int userId;
 
-	@Column(name = "colorid")
-	private int colorId;
-
+	@Column
 	private int quantity;
 }
