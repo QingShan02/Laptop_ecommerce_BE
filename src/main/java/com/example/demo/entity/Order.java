@@ -15,11 +15,15 @@ import java.util.Date;
 public class Order {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column
 	private int id;
-
-	private Date buyDate;
-
+	@Column
+	private Date buyDate = new Date();
+	@Column
 	private String place;
+
+	@Column
+	private int status;
 
 	@Column(name = "customerid")
 	private int customerId;
