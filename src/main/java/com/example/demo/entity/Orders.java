@@ -6,6 +6,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.util.Date;
+import java.util.List;
 
 @Entity
 @Table
@@ -27,4 +28,7 @@ public class Orders {
 
 	@Column(name = "customerid")
 	private int customerId;
+
+	@OneToMany(mappedBy = "order")
+	private List<Order_Detail> order_details;
 }
