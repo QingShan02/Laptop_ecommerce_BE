@@ -1,6 +1,11 @@
 package com.example.demo.controller;
 
+import java.util.Optional;
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -8,6 +13,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.example.demo.exception.InvalidRequestParameterException;
@@ -22,8 +28,8 @@ public class ProductController {
 	ProductService productService;
 
 	@GetMapping("/products")
-	public ResponseEntity<?> getAll() {
-		return ResponseEntity.ok(productService.findAll());
+	public ResponseEntity<?> getAll(@RequestParam("p") Optional<Integer> p) {
+		return ResponseEntity.ok(productService.findAll(PageRequest.of(p.orElse(0), 6)));
 	}
 
 	@GetMapping("/product/{id}")

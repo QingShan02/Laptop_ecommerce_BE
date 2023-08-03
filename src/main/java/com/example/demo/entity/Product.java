@@ -5,6 +5,7 @@ import java.util.List;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -26,22 +27,23 @@ import lombok.NoArgsConstructor;
 public class Product {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column
 	private int id;
-
+	@Column
 	private String name;
-
+	@Column
 	private String ram;
-
-	private String screen;
-
+	@Column
+	private String display;
+	@Column
 	private String rom;
-
+	@Column
 	private String os;
-
+	@Column
 	private double price;
-
+	@Column
 	private int quantity;
-
+	@Column
 	private String logo;
 	
     @ManyToOne
