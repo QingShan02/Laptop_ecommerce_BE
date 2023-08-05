@@ -13,7 +13,8 @@ import lombok.NoArgsConstructor;
 public class Cart {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private int id;
+	@Column(name="id")
+	private int cartId;
 
 	@ManyToOne
 	@JoinColumn(name="productid",insertable = true,updatable = false)
