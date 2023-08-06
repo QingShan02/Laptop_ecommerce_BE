@@ -12,15 +12,10 @@ import com.example.demo.entity.Product;
 import com.example.demo.exception.InvalidRequestParameterException;
 import com.example.demo.repository.ProductRepository;
 
-import jakarta.persistence.EntityManager;
-import jakarta.persistence.PersistenceContext;
-
 @Service
 public class ProductService implements BaseService<Product, Integer> {
 	@Autowired
 	ProductRepository repo;
-	@PersistenceContext
-	private EntityManager entityManager;
 
 	public Page<Product> findAll(Pageable pageable) {
 		return repo.findAll(pageable);
