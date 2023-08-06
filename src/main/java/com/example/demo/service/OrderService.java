@@ -10,10 +10,9 @@ import com.example.demo.exception.InvalidRequestParameterException;
 import com.example.demo.repository.CartRepository;
 import com.example.demo.repository.OrderDetailRepository;
 import com.example.demo.repository.OrderRepository;
-import com.example.demo.repository.ProductRepository;
 
 @Service
-public class OrderSerivce implements BaseService<Orders,Integer>{
+public class OrderService implements BaseService<Orders,Integer>{
     @Autowired
     private OrderRepository orderRepository;
 

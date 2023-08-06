@@ -11,14 +11,14 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.example.demo.entity.Orders;
-import com.example.demo.service.OrderSerivce;
+import com.example.demo.service.OrderService;
 
 @RestController
 @CrossOrigin("*")
 @RequestMapping("/api/order")
 public class OrderController {
     @Autowired
-    private OrderSerivce orderSerivce;
+    private OrderService orderSerivce;
 
     @GetMapping("")
     public ResponseEntity<?> getAll (@RequestParam("userId") int userId){
