@@ -31,10 +31,43 @@ public class UsersService implements BaseService<Users, Integer> {
 
 	public Users login(String email, String password) throws InvalidRequestParameterException {
 		// TODO Auto-generated method stub
-		usersRepository.findByEmail(email).orElseThrow(
-				() -> new InvalidRequestParameterException("EMAIL", InvalidRequestParameter.NOT_EXISTS));
-		return usersRepository.findByEmailAndPassword(email, password).orElseThrow(
-				() -> new InvalidRequestParameterException("PASSWORD", InvalidRequestParameter.WRONG));
+		usersRepository.findByEmail(email)
+				.orElseThrow(() -> new InvalidRequestParameterException("EMAIL", InvalidRequestParameter.NOT_EXISTS));
+		return usersRepository.findByEmailAndPassword(email, password)
+				.orElseThrow(() -> new InvalidRequestParameterException("PASSWORD", InvalidRequestParameter.WRONG));
 	}
 
+	public Users findByRole(Boolean isAdmin) throws InvalidRequestParameterException {
+		return usersRepository.findByIsAdmin(isAdmin)
+				.orElseThrow(() -> new InvalidRequestParameterException("Role", InvalidRequestParameter.NOTHING));
+
+	}
+
+	public int save(Users user) throws InvalidRequestParameterException {
+		if (user == null) {
+			throw new InvalidRequestParameterException("User", InvalidRequestParameter.NOTHING);
+		}
+		Users u = usersRepository.findByFullname(user.getFullname());
+		if (u != null) {
+			throw new InvalidRequestParameterException("User", InvalidRequestParameter.EXISTS);
+		}
+		usersRepository.save(user);
+		return 1;
+	}
+
+	public int deleteById(Integer id) throws InvalidRequestParameterException {
+		if (!usersRepository.existsById(id)) {
+			throw new InvalidRequestParameterException("id", InvalidRequestParameter.NOT_FOUND);
+		}
+		usersRepository.delete(usersRepository.findById(id).get());
+		return 1;
+	}
+
+	public int update(Users user) throws InvalidRequestParameterException {
+		if (!usersRepository.existsById(user.getId())) {
+			throw new InvalidRequestParameterException("User", InvalidRequestParameter.NOT_EXISTS);
+		}
+		usersRepository.save(user);
+		return 1;
+	}
 }
