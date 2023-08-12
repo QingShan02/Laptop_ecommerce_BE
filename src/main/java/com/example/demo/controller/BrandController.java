@@ -43,8 +43,8 @@ public class BrandController {
 		return ResponseEntity.ok(brandService.deleteById(id));
 	}
 
-	@PutMapping("/update")
-	public ResponseEntity<?> update(@RequestBody Brand brand) throws InvalidRequestParameterException {
-		return ResponseEntity.ok(brandService.update(brand));
+	@PutMapping("/{id}")
+	public ResponseEntity<?> update(@PathVariable("id") Integer id,@RequestBody Brand brand) throws InvalidRequestParameterException {
+		return ResponseEntity.ok(brandService.update(id, brand));
 	}
 }
