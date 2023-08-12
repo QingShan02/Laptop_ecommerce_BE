@@ -49,8 +49,8 @@ public class BrandService implements BaseService<Brand, Integer> {
 		return 1;
 	}
 
-	public int update(Brand brand) throws InvalidRequestParameterException {
-		if (!repo.existsById(brand.getId())) {
+	public int update(Integer id,Brand brand) throws InvalidRequestParameterException {
+		if (!repo.existsById(id)) {
 			throw new InvalidRequestParameterException("brand", InvalidRequestParameter.NOT_EXISTS);
 		}
 		repo.save(brand);
