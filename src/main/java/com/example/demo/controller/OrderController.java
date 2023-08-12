@@ -1,5 +1,7 @@
 package com.example.demo.controller;
 
+import java.util.Optional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -21,8 +23,8 @@ public class OrderController {
     private OrderService orderSerivce;
 
     @GetMapping("")
-    public ResponseEntity<?> getAll (@RequestParam("userId") int userId){
-        return ResponseEntity.ok(orderSerivce.findByCustomerId(userId));
+    public ResponseEntity<?> getAll (@RequestParam("userId") Optional<Integer> userId){ 
+        return ResponseEntity.ok(userId.isPresent() ?orderSerivce.findByCustomerId(userId.get()): orderSerivce.findAll());
     }
 
     @PostMapping("/save")

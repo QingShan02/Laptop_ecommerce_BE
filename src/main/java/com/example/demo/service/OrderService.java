@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.example.demo.dto.OrderDto;
 import com.example.demo.entity.Orders;
 import com.example.demo.exception.InvalidRequestParameterException;
 import com.example.demo.repository.CartRepository;
@@ -12,7 +13,7 @@ import com.example.demo.repository.OrderDetailRepository;
 import com.example.demo.repository.OrderRepository;
 
 @Service
-public class OrderService implements BaseService<Orders,Integer>{
+public class OrderService{
     @Autowired
     private OrderRepository orderRepository;
 
@@ -23,16 +24,9 @@ public class OrderService implements BaseService<Orders,Integer>{
     private CartRepository cartRepository;
 
 
-    @Override
-    public List<Orders> findAll() {
+    public List<OrderDto> findAll() {
         // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'findAll'");
-    }
-
-    @Override
-    public Orders findById(Integer id) throws InvalidRequestParameterException {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'findById'");
+        return orderRepository.findAll().stream().map(s->new OrderDto(s)).toList();
     }
 
     public List<Orders> findByCustomerId(int customerId){

@@ -9,5 +9,6 @@ import org.springframework.stereotype.Repository;
 import com.example.demo.entity.Orders;
 @Repository
 public interface OrderRepository extends JpaRepository<Orders,Integer> {
+    @Query(value = "select o from Orders o where o.user.id = :customerId",nativeQuery = true)
     List<Orders> findByCustomerId(int customerId);
 }
