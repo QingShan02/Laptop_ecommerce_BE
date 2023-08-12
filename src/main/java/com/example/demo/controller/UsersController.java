@@ -22,25 +22,27 @@ import com.example.demo.service.UsersService;
 public class UsersController {
 	@Autowired
 	private UsersService usersService;
-	
-	@GetMapping(value = {"/",""})
+
+	@GetMapping(value = { "/", "" })
 	public ResponseEntity<?> getAll() {
 		return ResponseEntity.ok(usersService.findAll());
 	}
-	
+
 	@GetMapping("/{id}")
-	public ResponseEntity<?> getById(@PathVariable int id) throws InvalidRequestParameterException{
+	public ResponseEntity<?> getById(@PathVariable int id) throws InvalidRequestParameterException {
 		return ResponseEntity.ok(usersService.findById(id));
 	}
+
 	@PostMapping("/save")
 	public ResponseEntity<?> save(@RequestBody Users user) throws InvalidRequestParameterException {
 		return ResponseEntity.ok(usersService.save(user));
 	}
-	
+
 	@DeleteMapping("/{id}")
 	public ResponseEntity<?> delete(@PathVariable("id") Integer id) throws InvalidRequestParameterException {
 		return ResponseEntity.ok(usersService.deleteById(id));
 	}
+
 	@PutMapping("/update")
 	public ResponseEntity<?> update(@RequestBody Users user) throws InvalidRequestParameterException {
 		return ResponseEntity.ok(usersService.update(user));
