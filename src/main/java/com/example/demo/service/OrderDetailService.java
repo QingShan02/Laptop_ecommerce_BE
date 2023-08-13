@@ -9,6 +9,7 @@ import com.example.demo.repository.OrderRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Date;
 import java.util.List;
 
 @Service
@@ -17,7 +18,7 @@ public class OrderDetailService {
     private OrderDetailRepository orderDetailRepository;
 
 
-    public List<Report> productsSold() {
-        return orderDetailRepository.productsSold();
+    public List<Report> productsSold(Date startDate, Date endDate) {
+        return orderDetailRepository.productsSold(startDate, endDate);
     }
 }
