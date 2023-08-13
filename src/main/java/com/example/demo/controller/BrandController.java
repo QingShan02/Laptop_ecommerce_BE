@@ -1,6 +1,9 @@
 package com.example.demo.controller;
 
+import java.util.Optional;
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -10,6 +13,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.example.demo.entity.Brand;
@@ -29,8 +33,8 @@ public class BrandController {
 	}
 
 	@GetMapping({ "/", "" })
-	public ResponseEntity<?> getAll() {
-		return ResponseEntity.ok(brandService.findAll());
+	public ResponseEntity<?> getAll(@RequestParam("p") Optional<Integer> p) {
+		return ResponseEntity.ok(brandService.findAll(PageRequest.of(p.orElse(0), 3)));
 	}
 
 	@PostMapping("/save")
@@ -44,7 +48,8 @@ public class BrandController {
 	}
 
 	@PutMapping("/{id}")
-	public ResponseEntity<?> update(@PathVariable("id") Integer id,@RequestBody Brand brand) throws InvalidRequestParameterException {
+	public ResponseEntity<?> update(@PathVariable("id") Integer id, @RequestBody Brand brand)
+			throws InvalidRequestParameterException {
 		return ResponseEntity.ok(brandService.update(id, brand));
 	}
 }
