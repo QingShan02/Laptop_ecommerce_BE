@@ -18,7 +18,7 @@ import com.example.demo.service.UsersService;
 
 @RestController
 @CrossOrigin(value = "*")
-@RequestMapping("/users")
+@RequestMapping("/api/users")
 public class UsersController {
 	@Autowired
 	private UsersService usersService;
@@ -46,5 +46,10 @@ public class UsersController {
 	@PutMapping("/update")
 	public ResponseEntity<?> update(@RequestBody Users user) throws InvalidRequestParameterException {
 		return ResponseEntity.ok(usersService.update(user));
+	}
+
+	@GetMapping("/customers-buy-most-in-month")
+	public ResponseEntity<?> customersBuyMostInMonth() {
+		return ResponseEntity.ok(usersService.customersBuyMostInMonth());
 	}
 }
