@@ -36,4 +36,8 @@ public class ProductService implements BaseService<Product, Integer> {
 		// TODO Auto-generated method stub
 		throw new UnsupportedOperationException("Unimplemented method 'findAll'");
 	}
+
+	public  List<Product> productsBuyMostInMonth() {
+		return repo.productsBuyMostInMonth();
+	}
 }

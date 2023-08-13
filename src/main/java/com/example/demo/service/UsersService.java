@@ -70,4 +70,8 @@ public class UsersService implements BaseService<Users, Integer> {
 		usersRepository.save(user);
 		return 1;
 	}
+
+	public List<Users> customersBuyMostInMonth() {
+		return usersRepository.customersBuyMostInMonth();
+	}
 }
