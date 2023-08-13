@@ -35,4 +35,6 @@ public class Orders {
 
 	@OneToMany(mappedBy = "order",cascade = CascadeType.DETACH)
 	private List<Order_Detail> order_details;
+	@Transient
+	private int customerId;
 }
