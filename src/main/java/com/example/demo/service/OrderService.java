@@ -9,9 +9,12 @@ import org.springframework.stereotype.Service;
 import com.example.demo.dto.OrderDto;
 import com.example.demo.entity.Orders;
 import com.example.demo.exception.InvalidRequestParameterException;
+import com.example.demo.model.MailInfo;
 import com.example.demo.repository.CartRepository;
 import com.example.demo.repository.OrderDetailRepository;
 import com.example.demo.repository.OrderRepository;
+
+import jakarta.mail.MessagingException;
 
 @Service
 public class OrderService{
@@ -23,7 +26,11 @@ public class OrderService{
 
     @Autowired
     private CartRepository cartRepository;
+    @Autowired
+    private UsersService usersService;
 
+    @Autowired
+    private EmailService emailService;
 
     public List<OrderDto> findAll() {
         // TODO Auto-generated method stub
@@ -34,17 +41,25 @@ public class OrderService{
         return orderRepository.findByCustomerId(customerId);
     } 
 
-    public int save (Orders order){
+    public int save (Orders order) throws MessagingException{
+        try {
+            order.setUser(usersService.findById(order.getCustomerId()));
+        } catch (InvalidRequestParameterException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
         Orders od = orderRepository.save(order);
         if(od != null){
             order.getOrder_details().forEach(s->{
                 s.setOrder(od);
             });
+            od.setOrder_details(order.getOrder_details());
             System.out.println(3425443);
             orderDetailRepository.saveAll(order.getOrder_details());
             order.getOrder_details().forEach(s->{
                 cartRepository.deleteById(s.getCartId());
             });
+            emailService.send(new MailInfo(order.getUser().getEmail(), "Hóa đơn Zuhot Store", od));
             return 1;
         }
         return 0;

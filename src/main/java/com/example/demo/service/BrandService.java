@@ -3,6 +3,8 @@ package com.example.demo.service;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import com.example.demo.common.enums.InvalidRequestParameter;
@@ -18,6 +20,10 @@ public class BrandService implements BaseService<Brand, Integer> {
 	@Override
 	public List<Brand> findAll() {
 		return repo.findAll();
+	}
+
+	public Page<Brand> findAll(Pageable pageable) {
+		return repo.findAll(pageable);
 	}
 
 	@Override
@@ -49,7 +55,7 @@ public class BrandService implements BaseService<Brand, Integer> {
 		return 1;
 	}
 
-	public int update(Integer id,Brand brand) throws InvalidRequestParameterException {
+	public int update(Integer id, Brand brand) throws InvalidRequestParameterException {
 		if (!repo.existsById(id)) {
 			throw new InvalidRequestParameterException("brand", InvalidRequestParameter.NOT_EXISTS);
 		}

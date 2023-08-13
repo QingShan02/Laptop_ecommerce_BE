@@ -15,6 +15,8 @@ import org.springframework.web.bind.annotation.RestController;
 import com.example.demo.entity.Orders;
 import com.example.demo.service.OrderService;
 
+import jakarta.mail.MessagingException;
+
 @RestController
 @CrossOrigin("*")
 @RequestMapping("/api/order")
@@ -28,7 +30,7 @@ public class OrderController {
     }
 
     @PostMapping("/save")
-    public ResponseEntity<?> save (@RequestBody Orders order){
+    public ResponseEntity<?> save (@RequestBody Orders order) throws MessagingException{
         return ResponseEntity.ok(orderSerivce.save(order));
     }
 }
