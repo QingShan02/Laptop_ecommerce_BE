@@ -32,6 +32,10 @@ public class OrderService{
     @Autowired
     private EmailService emailService;
 
+    public Orders findById(Integer id){
+        return orderRepository.findById(id).get();
+    }
+
     public List<OrderDto> findAll() {
         // TODO Auto-generated method stub
         return orderRepository.findAll().stream().map(s->new OrderDto(s)).toList();

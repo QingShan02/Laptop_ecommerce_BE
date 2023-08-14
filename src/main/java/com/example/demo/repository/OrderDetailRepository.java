@@ -13,7 +13,7 @@ import java.util.List;
 
 public interface OrderDetailRepository extends JpaRepository<Order_Detail, Integer>{
     @Query("SELECT NEW com.example.demo.entity.Report(pro.id, pro.name, pro.logo, " +
-            "       SUM(ord_de.quantity), SUM(pro.price)) " +
+            "SUM(ord_de.quantity), SUM(pro.price)) " +
             "FROM Order_Detail ord_de " +
             "JOIN ord_de.product pro " +
             "JOIN ord_de.order ord " +
