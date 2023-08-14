@@ -42,4 +42,9 @@ public class ProductController {
 		return ResponseEntity
 				.ok(productService.filterProduct(p.getRam(), p.getRom(), p.getDisplay(), p.getOs(), p.getBrandid()));
 	}
+
+	@GetMapping("/products-buy-most-in-month")
+	public ResponseEntity<?> productsBuyMostInMonth() {
+		return ResponseEntity.ok(productService.productsBuyMostInMonth());
+	}
 }

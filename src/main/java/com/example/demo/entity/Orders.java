@@ -20,7 +20,7 @@ public class Orders {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column
-	private int id;
+	public int id;
 	@Column
 	private Date buyDate = new Date();
 	@Column
@@ -29,9 +29,12 @@ public class Orders {
 	@Column
 	private int status;
 
-	@Column(name = "customerid")
-	private int customerId;
+	@ManyToOne
+	@JoinColumn(name = "customerid")
+	private Users user;
 
 	@OneToMany(mappedBy = "order",cascade = CascadeType.DETACH)
 	private List<Order_Detail> order_details;
+	@Transient
+	private int customerId;
 }

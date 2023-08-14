@@ -2,6 +2,7 @@ package com.example.demo.repository;
 
 import java.util.List;
 
+import com.example.demo.entity.Users;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
@@ -23,4 +24,17 @@ public interface ProductRepository extends JpaRepository<Product,Integer>{
 			+ "AND o.brand.id = "
 			+ "CASE WHEN ?5 IS NULL THEN o.brand.id ELSE ?5 END")
 	List<Product> filterProduct(String ram, String rom, String display,String os, Integer brandid);
+
+	@Query(value = "SELECT pro.id, pro.name, ram, display, rom, os, price, pro.quantity, pro.brandid, pro.colorid, pro.logo\n" +
+			"FROM order_detail ord_de JOIN product pro ON ord_de.productid = pro.id\n" +
+			"GROUP BY pro.id, pro.name, ram, display, rom, os, price, pro.quantity, pro.brandid, pro.colorid,  pro.logo\n" +
+			"HAVING SUM(ord_de.quantity) = (\n" +
+			"    SELECT MAX(total_quantity)\n" +
+			"    FROM (\n" +
+			"        SELECT productid, SUM(quantity) AS total_quantity\n" +
+			"        FROM order_detail\n" +
+			"        GROUP BY productid\n" +
+			"    ) AS subquery\n" +
+			");", nativeQuery = true)
+	List<Product> productsBuyMostInMonth();
 }

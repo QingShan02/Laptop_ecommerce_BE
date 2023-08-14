@@ -1,0 +1,33 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body class="bg-red-100">
+    <div class="container">
+      <div class="space-y-4 mb-6">
+        <h2>Cảm ơn [[${name}]] đặt đơn hàng</h2>
+        <p>Bạn vừa đặt đơn hàng tại Zuhot Store</p>
+      </div>
+      <div style="border:1px solid rgb(171, 169, 169);padding: 10px 20px;border-radius: 5px;">
+        <h3 style="text-align: center;">Đơn hàng - ID: #[[${id}]]</h3>
+        <hr class="my-6">
+
+        <table style="width: 100%;">
+          <tbody>
+            <tr th:each="item:${ord}" style="margin: 20px;">
+              <td><img style="width: 6rem" th:src="@{${item.product.logo}}" alt=""></td>
+              <td>[[${item.product.name}]]</td>
+              <td style="text-align: center;">[[${item.quantity}]]</td>
+              <td style="text-align: right;">[[${#strings.replace(#numbers.formatCurrency(item.product.price), '.0',
+                '')}]]</td>
+            </tr>
+          </tbody>
+        </table>
+        <hr class="my-6">
+        <p>If you have any questions, contact us at <a href="">zuhot@example.com</a>.</p>
+      </div>
+    </div>
+  </body>
+</html>

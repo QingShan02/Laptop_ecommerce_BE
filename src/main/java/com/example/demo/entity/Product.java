@@ -43,6 +43,12 @@ public class Product {
 	private double price;
 	@Column
 	private int quantity;
+	@Column(name = "brandid")
+	@JsonIgnore
+	private int brandId;
+	@Column(name = "colorid")
+	@JsonIgnore
+	private int colorid;
 	@Column
 	private String logo;
 	
@@ -52,7 +58,7 @@ public class Product {
     private Brand brand;
 
 	@OneToOne
-	@JoinColumn(name = "colorid")
+	@JoinColumn(name = "colorid", insertable = false, updatable = false)
 	private Color color;
 
 	@OneToMany(mappedBy = "product")
