@@ -1,16 +1,12 @@
 package com.example.demo.entity;
 
+
 import java.util.List;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.OneToMany;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
+
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -22,7 +18,8 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class Users {
 	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator =  "user_generator")
+	@SequenceGenerator(name="user_generator", sequenceName = "users_id_seq", allocationSize=1)
 	@Column
 	private int id;
 	
