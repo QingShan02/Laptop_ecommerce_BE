@@ -14,6 +14,7 @@ import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.OneToOne;
+import jakarta.persistence.SequenceGenerator;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -26,7 +27,8 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class Product {
 	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "generator_product")
+	@SequenceGenerator(name = "generator_product", sequenceName = "product_id_seq", allocationSize = 1)
 	@Column
 	private int id;
 	@Column
@@ -44,18 +46,15 @@ public class Product {
 	@Column
 	private int quantity;
 	@Column(name = "brandid")
-	@JsonIgnore
 	private int brandId;
 	@Column(name = "colorid")
-	@JsonIgnore
-	private int colorid;
+	private int colorId;
 	@Column
 	private String logo;
-	
-    @ManyToOne
-    @JoinColumn(name = "brandid", insertable = false, updatable = false)
-    @JsonIgnore
-    private Brand brand;
+
+	@ManyToOne
+	@JoinColumn(name = "brandid", insertable = false, updatable = false)
+	private Brand brand;
 
 	@OneToOne
 	@JoinColumn(name = "colorid", insertable = false, updatable = false)
@@ -68,4 +67,7 @@ public class Product {
 	@OneToMany(mappedBy = "product")
 	@JsonIgnore
 	private List<Order_Detail> order_Details;
+
+	@Column
+	private Date publishedDate = new Date();
 }
