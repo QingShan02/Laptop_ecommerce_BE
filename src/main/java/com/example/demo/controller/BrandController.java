@@ -33,8 +33,8 @@ public class BrandController {
 	}
 
 	@GetMapping({ "/", "" })
-	public ResponseEntity<?> getAll(@RequestParam("p") Optional<Integer> p) {
-		return ResponseEntity.ok(brandService.findAll(PageRequest.of(p.orElse(0), 3)));
+	public ResponseEntity<?> getAll() {
+		return ResponseEntity.ok(brandService.findAll());
 	}
 
 	@PostMapping("/save")

@@ -30,7 +30,6 @@ public class CartController {
 
     @GetMapping("")
     public ResponseEntity<?> findByUserId(@RequestParam("userId") Optional<Integer> id){
-
         return ResponseEntity.ok(cartService.findByUserId(id.get()));  
     }
     @GetMapping("/{id}")

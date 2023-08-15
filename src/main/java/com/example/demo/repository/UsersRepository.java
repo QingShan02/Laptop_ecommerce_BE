@@ -13,7 +13,7 @@ import com.example.demo.entity.Users;
 public interface UsersRepository extends JpaRepository<Users, Integer> {
 	Optional<Users> findByEmailAndPassword(String email, String password);
 	Optional<Users> findByEmail(String email);
-	Optional<Users> findByIsAdmin(Boolean isAdmin);
+	List<Users> findByIsAdmin(Boolean isAdmin);
 	Users findByFullname(String name);
 
 	@Query(value = "SELECT usr.id, usr.password, usr.fullname, usr.email, usr.phone, usr.is_admin\n" +

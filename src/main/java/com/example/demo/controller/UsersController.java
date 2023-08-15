@@ -28,11 +28,16 @@ public class UsersController {
 		return ResponseEntity.ok(usersService.findAll());
 	}
 
+	@GetMapping(value = "/customer")
+	public ResponseEntity<?> getAllCustomer() {
+		return ResponseEntity.ok(usersService.findByIsAdmin(false));
+	}
+	
 	@GetMapping("/{id}")
 	public ResponseEntity<?> getById(@PathVariable int id) throws InvalidRequestParameterException {
 		return ResponseEntity.ok(usersService.findById(id));
 	}
-
+	
 	@PostMapping("/save")
 	public ResponseEntity<?> save(@RequestBody Users user) throws InvalidRequestParameterException {
 		return ResponseEntity.ok(usersService.save(user));
