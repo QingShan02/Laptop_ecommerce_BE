@@ -26,9 +26,7 @@ public class LoginController {
 	}
 
 	@PostMapping("/register")
-	public ResponseEntity<?> login(@RequestBody Users data) throws InvalidRequestParameterException {
-
-		return ResponseEntity.ok(usersService
-				.save(data));
+	public ResponseEntity<?> register(@RequestBody Users data) throws InvalidRequestParameterException {
+		return ResponseEntity.ok(usersService.register(data));
 	}
 }

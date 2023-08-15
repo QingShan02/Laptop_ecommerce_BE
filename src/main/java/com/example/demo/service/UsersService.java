@@ -1,6 +1,7 @@
 package com.example.demo.service;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -41,13 +42,18 @@ public class UsersService implements BaseService<Users, Integer> {
 		return usersRepository.findByIsAdmin(isAdmin);
 	}
 
-	public int save(Users user) throws InvalidRequestParameterException {
-		if (user == null) {
-			throw new InvalidRequestParameterException("User", InvalidRequestParameter.NOTHING);
+	public Users register(Users user) throws InvalidRequestParameterException {
+		if (usersRepository.findByEmail(user.getEmail()).isPresent()) {
+			throw new InvalidRequestParameterException("User",
+					InvalidRequestParameter.EXISTS);
 		}
-		Users u = usersRepository.findByFullname(user.getFullname());
-		if (u != null) {
-			throw new InvalidRequestParameterException("User", InvalidRequestParameter.EXISTS);
+		return usersRepository.save(user);
+	}
+
+	public int save(Users user) throws InvalidRequestParameterException {
+		if (usersRepository.findByEmail(user.getEmail()).isPresent()) {
+			throw new InvalidRequestParameterException("User",
+					InvalidRequestParameter.EXISTS);
 		}
 		usersRepository.save(user);
 		return 1;
