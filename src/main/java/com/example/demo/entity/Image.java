@@ -19,4 +19,8 @@ public class Image {
 
 	@Column(name = "productid")
 	private int productId;
+
+	@ManyToOne(cascade = CascadeType.REMOVE)
+	@JoinColumn(name = "productid", insertable = false, updatable = false)
+	Product product;
 }

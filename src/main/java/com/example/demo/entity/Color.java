@@ -7,6 +7,8 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.List;
+
 @Entity
 @Table(name = "color")
 @Data
@@ -19,7 +21,7 @@ public class Color {
 
 	private String name;
 
-	@OneToOne(mappedBy = "color")
+	@OneToMany(mappedBy = "color")
 	@JsonIgnore
-	private Product product;
+	private List<Product> product;
 }

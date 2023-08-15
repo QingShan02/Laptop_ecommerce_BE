@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import com.example.demo.common.enums.InvalidRequestParameter;
@@ -35,6 +36,14 @@ public class ProductService implements BaseService<Product, Integer> {
 	public List<Product> findAll() {
 		// TODO Auto-generated method stub
 		throw new UnsupportedOperationException("Unimplemented method 'findAll'");
+	}
+
+	public void update(Product product) {
+		repo.save(product);
+	}
+
+	public void delete(Integer id) {
+		repo.deleteById(id);
 	}
 
 	public  List<Product> productsBuyMostInMonth() {

@@ -22,9 +22,6 @@ public class BrandService implements BaseService<Brand, Integer> {
 		return repo.findAll();
 	}
 
-	public Page<Brand> findAll(Pageable pageable) {
-		return repo.findAll(pageable);
-	}
 
 	@Override
 	public Brand findById(Integer id) throws InvalidRequestParameterException {
