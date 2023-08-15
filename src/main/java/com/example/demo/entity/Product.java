@@ -32,7 +32,7 @@ import javax.swing.text.View;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class Product implements Serializable {
+public class Product {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "generator_product")
