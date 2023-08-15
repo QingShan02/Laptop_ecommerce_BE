@@ -37,7 +37,18 @@ public class ProductService implements BaseService<Product, Integer> {
 		throw new UnsupportedOperationException("Unimplemented method 'findAll'");
 	}
 
-	public  List<Product> productsBuyMostInMonth() {
+	public List<Product> productsBuyMostInMonth() {
 		return repo.productsBuyMostInMonth();
+	}
+
+	public int insert(Product p) throws InvalidRequestParameterException {
+		try {
+			repo.save(p);
+			return 1;
+		} catch (Exception e) {
+			System.out.println(e);
+			return 0;
+		}
+		
 	}
 }

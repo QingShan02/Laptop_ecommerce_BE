@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.example.demo.entity.Product;
 import com.example.demo.exception.InvalidRequestParameterException;
 import com.example.demo.model.ProductFilter;
 import com.example.demo.service.ProductService;
@@ -46,5 +47,10 @@ public class ProductController {
 	@GetMapping("/products-buy-most-in-month")
 	public ResponseEntity<?> productsBuyMostInMonth() {
 		return ResponseEntity.ok(productService.productsBuyMostInMonth());
+	}
+
+	@PostMapping("/product/save")
+	public ResponseEntity<?> save(@RequestBody Product p) throws InvalidRequestParameterException {
+		return ResponseEntity.ok(productService.insert(p));
 	}
 }
