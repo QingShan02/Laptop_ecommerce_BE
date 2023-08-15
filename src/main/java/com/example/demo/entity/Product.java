@@ -10,6 +10,17 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonView;
 import jakarta.persistence.*;
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToMany;
+import jakarta.persistence.OneToOne;
+import jakarta.persistence.SequenceGenerator;
+import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -24,7 +35,8 @@ import javax.swing.text.View;
 public class Product implements Serializable {
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "generator_product")
+	@SequenceGenerator(name = "generator_product", sequenceName = "product_id_seq", allocationSize = 1)
 	@Column
 	private Integer id;
 	@Column
@@ -47,10 +59,10 @@ public class Product implements Serializable {
 	private int colorId;
 	@Column
 	private String logo;
-	
-    @ManyToOne
-    @JoinColumn(name = "brandid", insertable = false, updatable = false)
-    private Brand brand;
+
+	@ManyToOne
+	@JoinColumn(name = "brandid", insertable = false, updatable = false)
+	private Brand brand;
 
 	@OneToOne
 	@JoinColumn(name = "colorid", insertable = false, updatable = false)
@@ -67,4 +79,6 @@ public class Product implements Serializable {
 	@OneToMany(mappedBy = "product", cascade = CascadeType.REMOVE)
 	@JsonIgnore
 	private List<Image> images;
+	@Column
+	private Date publishedDate = new Date();
 }

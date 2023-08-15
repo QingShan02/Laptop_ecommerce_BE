@@ -37,10 +37,8 @@ public class UsersService implements BaseService<Users, Integer> {
 				.orElseThrow(() -> new InvalidRequestParameterException("PASSWORD", InvalidRequestParameter.WRONG));
 	}
 
-	public Users findByRole(Boolean isAdmin) throws InvalidRequestParameterException {
-		return usersRepository.findByIsAdmin(isAdmin)
-				.orElseThrow(() -> new InvalidRequestParameterException("Role", InvalidRequestParameter.NOTHING));
-
+	public List<Users> findByIsAdmin(Boolean isAdmin) {
+		return usersRepository.findByIsAdmin(isAdmin);
 	}
 
 	public int save(Users user) throws InvalidRequestParameterException {

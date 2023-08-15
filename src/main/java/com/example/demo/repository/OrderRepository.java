@@ -11,4 +11,7 @@ import com.example.demo.entity.Orders;
 public interface OrderRepository extends JpaRepository<Orders,Integer> {
     @Query(value = "select o from Orders o where o.user.id = :customerId")
     List<Orders> findByCustomerId(int customerId);
+    
+    @Query(value = "select o from Orders o where o.user.id = :customerId and o.status =:status")
+    List<Orders> findDhByStatusUser(int customerId ,int status);
 }

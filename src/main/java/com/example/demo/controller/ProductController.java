@@ -11,6 +11,7 @@ import org.springframework.data.domain.Sort;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import com.example.demo.entity.Product;
 import com.example.demo.exception.InvalidRequestParameterException;
 import com.example.demo.model.ProductFilter;
 import com.example.demo.service.ProductService;
@@ -58,5 +59,9 @@ public class ProductController {
 	@DeleteMapping("/product/delete/{id}")
 	public void update(@PathVariable("id") Integer id) {
 		productService.delete(id);
+	}
+	@PostMapping("/product/save")
+	public ResponseEntity<?> save(@RequestBody Product p) throws InvalidRequestParameterException {
+		return ResponseEntity.ok(productService.insert(p));
 	}
 }
