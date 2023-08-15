@@ -28,12 +28,27 @@ public class OrderService{
     private CartRepository cartRepository;
     @Autowired
     private UsersService usersService;
+    
 
     @Autowired
     private EmailService emailService;
 
     public Orders findById(Integer id){
         return orderRepository.findById(id).get();
+    }
+    
+    public List<Orders> findDhByStatusUser(int customerid,int status){
+        return orderRepository.findDhByStatusUser(customerid, status);
+    }
+    
+    public int update (Orders order)throws MessagingException{
+    	try {
+    	orderRepository.save(order);
+    	return 1;
+    	}catch(Exception e){
+    		e.printStackTrace();
+    		return 0;
+    	}
     }
 
     public List<OrderDto> findAll() {
